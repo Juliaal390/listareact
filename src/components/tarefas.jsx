@@ -1,5 +1,6 @@
-export default function Tarefas({tarefas, inputTarefa, handleAddTarefa}) {
- 
+import React from 'react';
+
+export default function Tarefas({ tarefas, inputTarefa, handleAddTarefa, checkboxStatuses, handleCheckboxChange }) {
   return (
     <>
       <div>
@@ -9,8 +10,13 @@ export default function Tarefas({tarefas, inputTarefa, handleAddTarefa}) {
         <div>
           {tarefas.map((tarefa, id) => (
             <div key={id}>
-              <input type="checkbox"/>
-              <label>{tarefa}</label>
+            <input type="checkbox" checked={checkboxStatuses[id]} onChange={() => handleCheckboxChange(id)}/>
+              <label style={{
+                  textDecoration: checkboxStatuses[id] ? 'line-through' : 'none',
+                }}
+              >
+                {tarefa}
+              </label>
               <br />
             </div>
           ))}
