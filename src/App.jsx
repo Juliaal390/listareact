@@ -13,24 +13,35 @@ export default function App() {
 
     setCheckboxStatuses([false, ...checkboxStatuses]); //quando uma nova tarefa é criada, é adicionado o valor false (pois não está marcado o input)
 
-
     inputTarefa.current.value = ""; // limpa o input ao enviar algo
   }
 
-  const handleCheckboxChange = (index) => {
-    const newCheckboxStatuses = [...checkboxStatuses];
-    newCheckboxStatuses[index] = !newCheckboxStatuses[index];
-    setCheckboxStatuses(newCheckboxStatuses);
+  const handleCheckboxChange = (index) => { //altera o valor do checkbox em especifico
+    const newCheckboxStatuses = [...checkboxStatuses]; //cria um novo array igual ao original
+    newCheckboxStatuses[index] = !newCheckboxStatuses[index]; //altera o valor do checkbox especifico
+    setCheckboxStatuses(newCheckboxStatuses); //atualiza o array original
   };
+
+  const excluir = (index) => {
+    const newTarefas = tarefas.filter((_, tarefaIndex) => tarefaIndex !== index);
+    //filtra as tarefas com índice (tarefaIndex) diference do index
+    setTarefas(newTarefas);
+
+    const newCheckboxStatuses = checkboxStatuses.filter((_, checkboxIndex) => checkboxIndex !== index);
+    setCheckboxStatuses(newCheckboxStatuses);
+  }
 
   return (
     <>
       <Tarefas 
         tarefas={tarefas} 
         inputTarefa={inputTarefa} 
+        setTarefas={setTarefas}
+        setCheckboxStatuses={setCheckboxStatuses}
         handleAddTarefa={handleAddTarefa} 
         checkboxStatuses={checkboxStatuses} 
-        handleCheckboxChange={handleCheckboxChange} 
+        handleCheckboxChange={handleCheckboxChange}
+        excluir={excluir} 
       />
     </>
   );
